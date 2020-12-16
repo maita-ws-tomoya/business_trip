@@ -11,6 +11,7 @@
         <p>作成日時：<fmt:formatDate value="${trip.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
         <p>更新日時：<fmt:formatDate value="${trip.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
 
+        <p><a href="${pageContext.request.contextPath}/edit?id=${trip.id}">このメッセージを編集する</a></p>
         <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
 
     </c:param>
