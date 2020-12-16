@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.BusinessTrip;
 import utils.DBUtil;
+
 
 /**
  * Servlet implementation class IndexServlet
@@ -34,10 +36,14 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        List<BusinessTrip> businesstrips = em.createNamedQuery("getAllBusinessTrips", BusinessTrip.class).getResultList();
-        response.getWriter().append(Integer.valueOf(businesstrips.size()).toString());
+        List<BusinessTrip> BusinessTrips = em.createNamedQuery("getAllBusinessTrips", BusinessTrip.class).getResultList();
 
         em.close();
+
+        request.setAttribute("trips", BusinessTrips);
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/trips/index.jsp");
+        rd.forward(request, response);
     }
 
 }
