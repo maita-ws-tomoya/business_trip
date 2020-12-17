@@ -11,7 +11,7 @@
     <body>
         <div id="wrapper">
             <div id="header">
-                <h1>出張管理 アプリケーション</h1>
+                <a href="${pageContext.request.contextPath}/index"><h1>出張管理 アプリケーション</h1></a>
             </div>
             <div id="content">
                 ${param.content}
