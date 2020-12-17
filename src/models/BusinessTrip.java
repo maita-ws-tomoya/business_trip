@@ -16,7 +16,11 @@ import javax.persistence.Table;
     @NamedQuery(
         name = "getAllBusinessTrips",
         query = "SELECT m FROM BusinessTrip AS m ORDER BY m.id DESC"
-    )
+    ),
+    @NamedQuery(
+            name = "getBusinessTripsCount",
+            query = "SELECT COUNT(m) FROM BusinessTrip AS m"
+            )
 })
 @Table(name = "trips")
 public class BusinessTrip {

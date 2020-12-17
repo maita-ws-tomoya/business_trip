@@ -36,11 +36,27 @@ public class IndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        List<BusinessTrip> BusinessTrips = em.createNamedQuery("getAllBusinessTrips", BusinessTrip.class).getResultList();
+        // 開くページ数を取得（デフォルトは1ページ目）
+        int page = 1;
+        try {
+            page = Integer.parseInt(request.getParameter("page"));
+        } catch(NumberFormatException e) {}
+
+        // 最大件数と開始位置を指定してメッセージを取得
+        List<BusinessTrip> trips = em.createNamedQuery("getAllBusinessTrips", BusinessTrip.class)
+                                   .setFirstResult(15 * (page - 1))
+                                   .setMaxResults(15)
+                                   .getResultList();
+
+        // 全件数を取得
+        long trips_count = (long)em.createNamedQuery("getBusinessTripsCount", Long.class)
+                                      .getSingleResult();
 
         em.close();
 
-        request.setAttribute("trips", BusinessTrips);
+        request.setAttribute("trips", trips);
+        request.setAttribute("trips_count", trips_count);     // 全件数
+        request.setAttribute("page", page);
 
         // フラッシュメッセージがセッションスコープにセットされていたら
         // リクエストスコープに保存する（セッションスコープからは削除）
