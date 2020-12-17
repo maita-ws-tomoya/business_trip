@@ -7,10 +7,26 @@
             <c:when test="${trip != null}">
                 <h2>id : ${trip.id} の出張詳細ページ</h2>
 
-                <p>タイトル：<c:out value="${trip.title}" /></p>
-                <p>メッセージ：<c:out value="${trip.content}" /></p>
-                <p>作成日時：<fmt:formatDate value="${trip.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
-                <p>更新日時：<fmt:formatDate value="${trip.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>タイトル</th>
+                            <td><c:out value="${trip.title}" /></td>
+                        </tr>
+                        <tr>
+                            <th>メッセージ</th>
+                            <td><c:out value="${trip.content}" /></td>
+                        </tr>
+                        <tr>
+                            <th>作成日時</th>
+                            <td><fmt:formatDate value="${trip.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        </tr>
+                        <tr>
+                            <th>更新日時</th>
+                            <td><fmt:formatDate value="${trip.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
                 <p><a href="${pageContext.request.contextPath}/edit?id=${trip.id}">この出張内容を編集する</a></p>
